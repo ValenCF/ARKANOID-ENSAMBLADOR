@@ -1,0 +1,230 @@
+00001CDA Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 14/01/2023 14:09:44
+
+00000000                             1  ; =============================================================================
+00000000                             2  ; TITLE    : GAME MANAGEMENT
+00000000                             3  ; AUTHOR   : Valentino Coppola Ferrari y Constantino Byelov Serdiuk
+00000000                             4  ; =============================================================================
+00000000                             5  
+00000000                             6  ;------------------------------------------------------------------------------
+00000000                             7  GAMEINIT
+00000000                             8  ;
+00000000                             9  ;
+00000000                            10  ;------------------------------------------------------------------------------
+00000000  48E7 FF70                 11              MOVEM.L D0-D7/A1-A3,-(A7)
+00000004                            12              
+Line 13 ERROR: Undefined symbol
+00000004  4EB9 004DBD16             13              JSR PADINIT
+Line 14 ERROR: Undefined symbol
+0000000A  4EB9 004DBD16             14              JSR POINTINIT
+00000010                            15              
+00000010                            16              ;BALL INIT
+Line 17 ERROR: Undefined symbol
+00000010  43F9 004DBD16             17              LEA     BALLINIT,A1
+Line 18 ERROR: Undefined symbol
+00000016  45F9 004DBD16             18              LEA     BALLUPD,A2
+Line 19 ERROR: Undefined symbol
+0000001C  47F9 004DBD16             19              LEA     BALLCONF,A3
+00000022  303C 0001                 20              MOVE.W  #1,D0
+00000026                            21           
+Line 22 ERROR: Undefined symbol
+00000026  4EB9 004DBD16             22              JSR     AGLADD
+0000002C                            23              
+0000002C                            24              ;BLOCK  INIT
+0000002C                            25              
+Line 26 ERROR: Undefined symbol
+0000002C  23FC 000000FF 005455CC    26              MOVE.L  #$000000FF,(BLOCKFCOL)      ; SET BLOCK FILL COLOR
+Line 27 ERROR: Undefined symbol
+00000036  33FC 0050 005455D0        27              MOVE.W  #80,(BLOCKPOSY)             ; SET FIRST WALL LINE Y
+Line 28 ERROR: Undefined symbol
+0000003E  33FC 0032 005455D8        28              MOVE.W  #50,(BLOCKPOSX)             ; SET FIRST WALL X IN A LINE
+00000046                            29              
+Line 30 ERROR: Undefined symbol
+00000046  33FC 001E 005455B8        30              MOVE.W  #30,(BLOCKTOTAL)
+0000004E  383C 0002                 31              MOVE.W  #2,D4
+00000052  363C 0009                 32              MOVE.W  #9,D3
+00000056                            33              
+00000056                            34              
+Line 35 ERROR: Undefined symbol
+00000056  303C BD16                 35              MOVE.W  #BLOCKID,D0                 ; AGENT ID
+Line 36 ERROR: Undefined symbol
+0000005A  3239 004DBD16             36              MOVE.W  (BLOCKPOSX),D1              ; AGENT INIT PARAMETER 1
+Line 37 ERROR: Undefined symbol
+00000060  3439 004DBD16             37              MOVE.W  (BLOCKPOSY),D2              ; AGENT INIT PARAMETER 2
+00000066                            38  
+Line 39 ERROR: Undefined symbol
+00000066  43F9 004DBD16             39              LEA     BLOCKINIT,A1                ; POINTER TO AGENT INIT FUNCTION
+Line 40 ERROR: Undefined symbol
+0000006C  45F9 004DBD16             40              LEA     BLOCKUPD,A2                 ; POINTER TO AGENT UPDATE FUNCTION
+Line 41 ERROR: Undefined symbol
+00000072  47F9 004DBD16             41              LEA     BLOCKPLOT,A3                ; POINTER TO AGENT PLOT FUNCTION 
+00000078                            42  
+00000078  6000 0016                 43              BRA .ADDBLOCK
+0000007C                            44              
+Line 45 ERROR: Undefined symbol
+0000007C  0679 003C 005455B8        45  .LOOP       ADD.W   #60,(BLOCKPOSX)
+Line 46 ERROR: Undefined symbol
+00000084  3239 004DBD16             46              MOVE.W  (BLOCKPOSX),D1
+Line 47 ERROR: Undefined symbol
+0000008A  3439 004DBD16             47              MOVE.W  (BLOCKPOSY),D2
+00000090                            48  
+00000090                            49  
+Line 50 ERROR: Undefined symbol
+00000090  4EB9 004DBD16             50  .ADDBLOCK   JSR AGLADD
+00000096  51CB FFE4                 51              DBRA D3,.LOOP
+0000009A                            52            
+0000009A  363C 0009                 53              MOVE.W  #9,D3
+Line 54 ERROR: Undefined symbol
+0000009E  33FC 0032 005455B8        54              MOVE.W  #50,(BLOCKPOSX)
+Line 55 ERROR: Undefined symbol
+000000A6  0679 0023 005455B8        55              ADD.W  #35,(BLOCKPOSY)
+000000AE                            56              
+000000AE  51CC FFE0                 57              DBRA   D4,.ADDBLOCK
+Line 58 ERROR: Undefined symbol
+000000B2  33FC 0032 005455B8        58              MOVE.W  #50,(BLOCKPOSX)             
+Line 59 ERROR: Undefined symbol
+000000BA  33FC 0050 005455B8        59              MOVE.W  #80,(BLOCKPOSY) 
+000000C2                            60              
+000000C2  4CDF 0EFF                 61              MOVEM.L (A7)+,D0-D7/A1-A3
+000000C6  4E75                      62              RTS
+000000C8                            63              
+000000C8                            64              
+000000C8                            65  ;------------------------------------------------------------------------------
+000000C8                            66  GAMEUPD
+000000C8                            67  ;UPDATE THE GAME
+000000C8                            68  ;
+000000C8                            69  ;------------------------------------------------------------------------------
+000000C8                            70  
+000000C8  48E7 FFE0                 71              MOVEM.L D0-D7/A0-A2,-(A7)
+Line 72 ERROR: Undefined symbol
+000000CC  4EB9 004DBD16             72              JSR     PADUPD
+Line 73 ERROR: Undefined symbol
+000000D2  4EB9 004DBD16             73              JSR     POINTUPD
+000000D8                            74              
+Line 75 ERROR: Undefined symbol
+000000D8  43F9 004DBD16             75              LEA     XLIST,A1                ; LOAD (X,Y) BLOCK LIST 
+Line 76 ERROR: Undefined symbol
+000000DE  45F9 004DBD16             76              LEA     YLIST,A2
+Line 77 ERROR: Undefined symbol
+000000E4  303C BD16                 77              MOVE.W  #BLOCKID,D0             ; LOAD BLOCKID INTO D0
+Line 78 ERROR: Undefined symbol
+000000E8  4EB9 004DBD16             78              JSR     DMMFRSTO                ; GET FIRST AGENT SEARCHING THE ID
+000000EE                            79              
+000000EE                            80  .LOADBLOCKS 
+000000EE  B1FC 00000000             81              CMP.L   #0,A0                   ; CHECK IF BLOCK EXISTS
+000000F4  6700 0012                 82              BEQ     .AGTUPD                 ; IF DOESN'T EXIST UPDATE AGENT LIST
+000000F8                            83              
+000000F8  32E8 0008                 84              MOVE.W  8(A0),(A1)+             ; ADD AGENT (X,Y) COORDINATES TO LISTS
+000000FC  34E8 000A                 85              MOVE.W  10(A0),(A2)+            
+00000100                            86              
+Line 87 ERROR: Undefined symbol
+00000100  4EB9 004DBD16             87              JSR     DMMNEXTO                ; LOAD NEXT BLOCK
+00000106  60E6                      88              BRA     .LOADBLOCKS             
+00000108                            89              
+00000108                            90              ; UPDATE AGENT LIST
+Line 91 ERROR: Undefined symbol
+00000108  4EB9 004DBD16             91  .AGTUPD     JSR     AGLUPD                  ; UPDATE AGENT LIST  
+0000010E                            92  
+0000010E                            93  
+0000010E                            94              ; BLOCK AGENT KILL          
+Line 95 ERROR: Undefined symbol
+0000010E  43F9 004DBD16             95              LEA     BLOCKPOSX,A1            ; LOAD (X,Y) BLOCK COORDINATES
+Line 96 ERROR: Undefined symbol
+00000114  45F9 004DBD16             96              LEA     BLOCKPOSY,A2
+Line 97 ERROR: Undefined symbol
+0000011A  303C BD16                 97              MOVE.W  #BLOCKID,D0             ; LOAD BLOCKID INTO D0
+Line 98 ERROR: Undefined symbol
+0000011E  4EB9 004DBD16             98              JSR     DMMFRSTO                ; GET FIRST AGENT SEARCHING THE ID
+00000124                            99              
+00000124                           100  .BLOCKKILL  
+00000124  B1FC 00000000            101              CMP.L   #0,A0                   ; CHECK IF EXISTS
+0000012A  6700 0044                102              BEQ     .WIN                    ; IF IT DOESN'T EXIST CHECK IF PLAYER WON
+0000012E  3411                     103              MOVE.W  (A1),D2
+00000130  3612                     104              MOVE.W  (A2),D3
+00000132  B468 0008                105              CMP.W    8(A0),D2               ; CHECK (X,Y) COORDINATES TO LOCATE THE 
+00000136                           106                                              ; BLOCK THAT WE NEED TO KILL
+00000136  6600 0030                107              BNE     .NEXT                    
+0000013A  B668 000A                108              CMP.W    10(A0),D3               
+0000013E  6600 0028                109              BNE     .NEXT                   
+Line 110 ERROR: Undefined symbol
+00000142  4EB9 004DBD16            110              JSR     AGLKILL                 ; IF X=BLOCKPOSX & Y=BLOCKPOSY THEN WE HAVE LOCATED 
+00000148                           111                                              ; THE BLOCK AND PROCED TO KILL IT
+00000148                           112                                              
+Line 113 ERROR: Undefined symbol
+00000148  0679 000A 005455DC       113              ADD.W  #10,(SCOPOINT)           ; ADD 10 POINT TO SCOREBOARD FOR BLOCK BREAK
+Line 114 ERROR: Undefined symbol
+00000150  3839 004DBD16            114              MOVE.W  (BLOCKTOTAL),D4
+Line 115 ERROR: Undefined symbol
+00000156  33C4 005455B8            115              MOVE.W D4,(REALREF)
+0000015C  5344                     116              SUB.W   #1,D4                   ; DECREMENT Nº OF TOTAL BLOCKS 
+Line 117 ERROR: Undefined symbol
+0000015E  33C4 005455B8            117              MOVE.W  D4,(BLOCKTOTAL)
+00000164  6000 000A                118              BRA     .WIN                    
+00000168                           119  
+00000168                           120  .NEXT       
+Line 121 ERROR: Undefined symbol
+00000168  4EB9 004DBD16            121              JSR     DMMNEXTO                ; GET NEXT BLOCK
+0000016E  60B4                     122              BRA     .BLOCKKILL  
+00000170                           123  
+00000170                           124  .WIN    
+Line 125 ERROR: Undefined symbol
+00000170  3A39 004DBD16            125              MOVE.W  (BLOCKTOTAL),D5
+00000176  BA7C 0000                126              CMP.W   #0,D5                   ; CHECK IF THERE ARE WALLS LEFT 
+0000017A  6600 000E                127              BNE     .CHECKLIFES             ; CHECK PLAYER LIFES
+Line 128 ERROR: Undefined symbol
+0000017E  33FC 0002 005455E4       128              MOVE.W  #2,(STANEXT)            ; IF TEHRE ARE NO WALLS LEFT AND PLAYER HAS LIFES 
+00000186                           129                                              ; THE PLAYER WON AND IS REDIRECTED TO WIN STATE
+00000186  6000 001A                130              BRA     .END
+0000018A                           131              
+0000018A                           132  .CHECKLIFES            
+Line 133 ERROR: Undefined symbol
+0000018A  0C79 0000 005455DC       133              CMP     #0,(LIFES)              ; CHECK IF PLAYER HAS MORE THAN 0 LIFES 
+00000192  6F00 0006                134              BLE     .GOVER                  ; IF PLAYER HAS 0 OR LESS LIFES, THE PLAYER LOST AND IS REDIRECTED TO GAME OVER STATE
+00000196  6000 000A                135              BRA     .END
+0000019A                           136              
+0000019A                           137  .GOVER      
+Line 138 ERROR: Undefined symbol
+0000019A  33FC 0003 005455C4       138              MOVE.W  #3,(STANEXT)            ; GAME OVER
+000001A2                           139  
+000001A2  4CDF 07FF                140  .END        MOVEM.L (A7)+,D0-D7/A0-A2
+000001A6  4E75                     141              RTS
+000001A8                           142  
+000001A8                           143  ;------------------------------------------------------------------------------
+000001A8                           144  GAMEPLOT
+000001A8                           145  ;
+000001A8                           146  ;
+000001A8                           147  ;------------------------------------------------------------------------------
+Line 148 ERROR: Undefined symbol
+000001A8  4EB9 004DBD16            148              JSR AGLPLOT
+Line 149 ERROR: Undefined symbol
+000001AE  4EB9 004DBD16            149              JSR POINTPLOT
+Line 150 ERROR: Undefined symbol
+000001B4  4EB9 004DBD16            150              JSR PADCONF
+000001BA  4E75                     151              RTS
+000001BC                           152        
+000001BC                           153  
+000001BC                           154  
+000001BC                           155  
+Line 156 WARNING: END directive missing, starting address not set
+
+49 errors detected
+1 warning generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+GAMEINIT            0
+GAMEINIT:ADDBLOCK   90
+GAMEINIT:LOOP       7C
+GAMEPLOT            1A8
+GAMEUPD             C8
+GAMEUPD:AGTUPD      108
+GAMEUPD:BLOCKKILL   124
+GAMEUPD:CHECKLIFES  18A
+GAMEUPD:END         1A2
+GAMEUPD:GOVER       19A
+GAMEUPD:LOADBLOCKS  EE
+GAMEUPD:NEXT        168
+GAMEUPD:WIN         170
